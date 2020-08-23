@@ -5,6 +5,7 @@
         <script>
         function ejercicio1(){ 
             var num=prompt("Dame un numero, porfavor: ");
+            ++num;
             document.write("<table>");
             for(i=1;i<num;i++){
             document.write("<tr><td>"+i+"</td><td>"+i*i+"</td></tr>");
@@ -33,9 +34,9 @@
         }
             
         function contador(){
-            const a = prompt("Anota tus numeros separados por comas: ", "Ejemplo: 1,2,0,-3").split(",");
+            const a = prompt("Anota tus numeros separados por comas: ", "Ej: -1,0,1").split(",");
 			var neg = 0, zeros = 0, pos = 0;
-			for (i = 0; i < a.length; i++) {
+			for (i = 0; i < a.length; i++) { //loop para leer cada valor del array
 				if (a[i] < 0) {
 					neg++;
 				}else if(a[i] == 0){
@@ -48,23 +49,66 @@
         }
             
         function promedio(){
-			const a;
-            var row;
-            var sum=0,prom = 0;
-			var n = prompt("Cuantos arrays quieres?: ");
-			var l = prompt("De que largo será el array?: ");
+            
+            var filas= prompt("Cuantas filas quieres en tu matriz?: ");
+            var columnas= prompt("Cuantas columnas quieres en tu matriz?: ");
+            var arr=[[],[],[]]; //el numero de parentesis de debe actualizar dependiendo del tamaño que se quiera poner el arr...no se como hacerlo sin tener que modificar aqui ahh una disculpa.
+            
+            for(var i=0;i<filas;i++){ //loop para llenar el array 2D
+                for (var j =  arr[i].length; j < columnas; j++){
+                    var n = prompt("Escribe un número: ");
+                    arr[i][j]=Number(n); //el constructor de number convierte el string en el prompt a un numero para poder ser usado para calcular el promedio despues.
+                }
+            }
+            
+            document.write("Tu array se ve asi: "+JSON.stringify(arr));
+            document.write("<br>");
+
+            for ( i=0;i<filas;i++){
+                var suma=0;
+                for(var j=0;j<columnas;j++){
+                    suma+=arr[i][j];
+                }
+                
+             document.write("El promedio del renglon "+i+" es: "+suma/columnas+".<br>");
+            }
 			}
             
-		}
+            function reverse(){
+                var n = prompt("Ingresa un numero el cual quieras ver al revés: ");
+                var digitos = n.toString().split(''); //separa tu parametro ingresado a un array
+                                
+                var sotigid = digitos.reverse(); //invierte el orden del array
+                var newn = sotigid.join(""); //junta todo en un string
+                
+                document.write("Tu numero era "+n+" ahora es: "+newn);
+            }
             
         </script>
     </head>
     <body>
+                <h1>Laboratorio 4</h1>
+        <hr>
+        <ul>
+            <li><b>¿Qué diferencias y semejanzas hay entre Java y JavaScript?</b> Java es un lenguaje compliado mientras que JavaScript se ejecuta a través de tu navegador al ser un lenguaje web. Java es un lenguaje back-end destinado a aplicaciones independientes.</li><br>
+            <li><b>¿Qué métodos tiene el objeto Date? (Menciona al menos 5*):</b> getFullYear(), getDate(), getHours(), getMinutes(), getTime()</li><br>
+            <li><b>¿Qué métodos tienen los arreglos? (Menciona al menos 5*):</b> reverse(), shift(), slice(), push(),pop()</li><br>
+            <li><b>¿Cómo se declara una variable con alcance local dentro de una función?</b> con "var [nombre de la variable]" </li><br>
+            <li><b>¿Qué implicaciones tiene utilizar variables globales dentro de funciones?</b> Nos ayuda a pasar estos valores a otras funciones para que se utilicen en otras maneras.</li><br>
+            <li><b>¿Qué método de String se puede utilizar para buscar patrones con expresiones regulares?¿Para qué podrías utilizar esto en una aplicación web?</b> Puede ser STRING.REPLACE(SEARCHVALUE, REPLACEVALUE) y se pueden utilizar este y otros metodos para sustituir valores predeterminados en una pagina web.</li><br>
+            
+        </ul>
         <script>
+            //PARA QUE FUNCIONE CADA FUNCION SOLO QUITA EL DOBLE SLASH DE EL METOOD QUE QUIERAS VER
+            
+            document.write("<hr><br>Resultados de las funciones: <br>")
+            document.write("<i><strike>Nota: Editar el codigo para que se muestren.</i></strike>")
+            
             //ejercicio1();
             //ejercicio2();
             //contador();
-            promedio();
+            //promedio();
+            //reverse();
         </script>
     </body>
 </html>
