@@ -1,0 +1,26 @@
+*{
+    background-color: #000;
+    margin: 0 auto;
+    max-width: 50em;
+    font-family: "Helvetica", "Arial", sans-serif;
+}
+
+body {
+  color: #fff;
+  line-height: 1.5;
+  padding: 4em 1em;
+}
+
+div {
+  background-color: #fff;
+  padding: 5px;
+  margin: 20px;
+}
+
+h1,h2, strong {
+    text-align: center;
+    margin-top: 1em;
+    padding-top: 1em;
+    color: #fdef53;
+    border: 8px double #fdef53;
+}
