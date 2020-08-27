@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta name="author" content="Edson Vázquez Cruz">
+    <title>A01411799</title>
+    <link rel="stylesheet" href="style.css">
+    <div id="watermark">
+        <p>EDSON</p>
+    </div>
+</head>
+
+<body>
+
+    <h1 id=ejm>Laboratorio #6</h1>
+
+    <div class="a">
+        <div class="b">Ejemplo de elemento div con posicion "Absolute" y top=0.</div>
+        <div class="c">Ejemplo 2, con un elemento div de la misma posición pero 50 pixeles debajo del top.</div>
+    </div>
+
+    <br>
+    <p><b>PREGUNTAS</b></p>
+
+    <ul>
+        <br>
+        <li><b>¿Cuáles son las diferencias entre los posibles valores de la propiedad position?</b> Los elementos "static" no son afectados por las propiedades top, bottom o right; en html todos los elementos son static por default. Los elementos "fixed" estan posicionados en relacion al viewport. Los elementos "absolute" se posiciona relativamente al ancestro mas cercano. Y los elementos "sticky" se acoplan a como vaya scrolleando el usuario.</li>
+        <li><b>¿Cuáles son los valores estándar para la propiedad visibility?</b> Visible, hidden, collapse, initial, inherit.</li>
+        <li><b>¿Qué es el zIndex y para que sirve?</b> Especifica el orden stack de un elemento.</li>
+    </ul>
+    <br>
+
+    <button id="boton">Haz click</button>
+
+    <br><br>
+    <p>Mueve al tito a la cara.</p>
+
+    <div id="div1" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+    <br>
+    <img id="drag1" src="https://clipart.info/images/ccovers/152285254142-cat-png-image-download-picture-kitten.png" draggable="true" ondragstart="drag(event)" width="200" height="200">
+    
+    <footer><i>>Todas mis referencias y ayuda fue gracias la pagina <a href="https://www.w3schools.com/">WEschools</a>.</i></footer>
+
+    <script>
+        var titu = document.getElementById("ejm");
+        var boton = document.getElementById("boton");
+
+        function caco() {
+            titu.style.color = "red";
+        }
+        
+        setTimeout(function color(){titu.style.color="Blue"},2000);
+
+        boton.onclick = caco;
+
+        function allowDrop(ev) {
+            ev.preventDefault();
+        }
+
+        function drag(ev) {
+            ev.dataTransfer.setData("text", ev.target.id);
+        }
+
+        function drop(ev) {
+            ev.preventDefault();
+            var data = ev.dataTransfer.getData("text");
+            ev.target.appendChild(document.getElementById(data));
+        }
+
+    </script>
+
+</body>
+
+</html>
