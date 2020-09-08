@@ -1,12 +1,3 @@
 <?php
-
-echo: "Hola, Edson";
-
-
-
-
-
-
-
-
+include("_header.html");
 ?>
