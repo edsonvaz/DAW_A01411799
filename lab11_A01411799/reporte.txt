@@ -1,0 +1,19 @@
+REPORTE DE EL LABORATORIO 11 - EDSON VAZQUEZ (A01411799)
+
+#1 ¿Que muestra la instrucción sp_help materiales?
+Muestra todas las características de la tabla seleccionada, que en este caso es la tabla materiales.
+
+#2 ¿Qué efecto tuvo esta acción?
+La creación de 4 archivos de formato .sql para la creación de cada una de las tablas de manera independiente.
+
+#3 ¿Qué utilidad tiene esta manera de ejecutar los comandos de SQL?
+Organizar los comandos en carpetas para no mezclan intrucciones y que ocurran errores de ejecución.
+
+#4 ¿Qué relación tienen con las tablas de la base de datos? (checa su contenido)
+Son los contenidos de dichas tablas.
+
+#5 ¿Qué relación tiene el contenido de este archivo (materiales.sql) con el formato en que se encuentran los datos en el archivo materiales.csv?
+Que materiales.sql contiene las intrucciones para poder leer lo que contiene el archivo materiales.csv y posteriormente ingresarlo a la base de datos.
+
+#6 ¿Qué sucedió al ejecutar la  instrucción SELECT  * FROM Materiales?
+Se desplegó todo el contenido de la tabla correctamente.
