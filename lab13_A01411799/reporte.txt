@@ -1,0 +1,49 @@
+LAB 13 - EDSON VAZQUEZ (A01411799)
+
+Revisa el contenido de la tabla materiales y determina si existe alguna inconsistencia en el contenido de la tabla.
+¿Cuál es? ¿A qué se debe? La descripción no esta especificada, por lo que ese campo difiere del resto de la tabla.
+
+Agrega nuevamente el registro a la tabla de materiales:
+INSERT INTO Materiales values(1000, 'xxx', 1000)
+
+¿Qué ocurrió? Regresa un error el servidor en donde nos dice que no se pueden hacer un registro con una clave duplicada debido
+a la restricción que hicimos en la instrucción previa, la cual evita que 2 claves iguales ocurran.
+
+Verifica si la tabla de materiales tiene definido algún constraint (restricción): sp_helpconstraint materiales
+¿Qué información muestra esta consulta? El listado de restricciones de la tabla consultada.
+
+¿Qué sentencias utilizaste para definir las llaves primarias?
+ALTER TABLE Materiales add constraint llaveMateriales PRIMARY KEY (Clave)
+ALTER TABLE Proveedores add constraint llaveProveedores PRIMARY KEY (RFC)
+ALTER TABLE Proyectos add constraint llaveProyectos PRIMARY KEY (Numero)
+
+¿Qué sentencias utilizaste para definir este constrait?
+ALTER TABLE Entregan add constraint llaveEntregan PRIMARY KEY (Clave,RFC,Numero,Fecha)
+
+Intenta insertar en la tabla entregan el siguiente registro:
+ NSERT INTO entregan values (0, 'xxx', 0, '1-jan-02', 0) ;
+¿Qué particularidad observas en los valores para clave, rfc y numero?
+Ninguna, todos los valores fueron aceptados. Solo que si resaltan un poco al ser placeholders.
+¿Cómo responde el sistema a la inserción de este registro? Aceptó el registro sin problemas.
+
+Intenta nuevamente la inserción del registro inconsistente.
+¿Qué significa el mensaje que emite el sistema? Significa que no puede ser añadido un nuevo registro debido a que, al ser "clave" una llave foranea,
+el introducir una nueva entrega donde el producto no tenga su clave registrada en la tabla de registros, no se debe insertar.
+¿Qué significado tiene la sentencia anterior? (Asumiendo que se refiere a la respuesta pasada) Significa que debemos considerar las relaciones al momento
+de definir llaves con diferentes restricciones, porque sino tendremos registros erroneos.
+
+sp_helpconstraint tableName
+¿Qué significan las columnas de esas consultas? Se despliegan todas las restrucciones que hayamos prestalecido en nuestra tabla consultada.
+
+Efectúa la siguiente sentencia INSERT:
+INSERT INTO entregan values (1000, 'AAAA800101', 5000, GETDATE(), 0);
+Lista el registro que acabas de crear.
+¿Qué uso se le está dando a GETDATE()? Inserta en el parametro de fecha, la fecha actual en cuanto se registró la nueva entrega.
+¿Tiene sentido el valor del campo de cantidad? En caso de que se refiera a precio, si, ya que quizas quiere decir que la entrega fue gratis.
+
+INTEGRIDAD REFERENCIAL:
+La integridad referencial es un sistema de reglas que utilizan la mayoría de las bases de datos relacionales para asegurarse que los registros
+de tablas relacionadas son válidos y que no se borren o cambien datos relacionados de forma accidental produciendo errores de integridad.
+
+REFERENCIA BIBLIOGRÁFICA:
+https://www.aulaclic.es/sql/b_8_1_1.htm
