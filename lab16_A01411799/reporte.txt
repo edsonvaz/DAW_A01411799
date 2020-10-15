@@ -1,0 +1,152 @@
+select * from materiales
+RESULTADO = 44 FILAS, EJEMPLO:
+1000, Varilla 3/16, 100.00
+1010. Varilla 4/32, 115.00
+1020, Varilla 4/32, 130.00
+
+select * from materiales
+where clave=1000
+RESULTADO = 1 FILA:
+1000. Varilla 3/16, 100.00
+
+select clave,rfc,fecha from entregan
+RESULTADO 133 FILAS, EJEMPLO:
+1000,AAAA8000101, 1998-07-98 00:00:00.000
+1000,AAAA8000101, 1998-08-08 19:56:32.777
+1000,AAAA8000101, 2020-09-28 00:00:00.000
+
+select * from materiales,entregan
+where materiales.clave = entregan.clave
+RESULTADO= 133 FILAS, EJEMPLO:
+1000	Varilla 3/16	100.00	1000	AAAA800101   	5000	1998-07-08 00:00:00.000	165.00
+Si algún material no ha se ha entregado ¿Aparecería en el resultado de esta consulta?
+No, no aparecerá
+
+select * from entregan,proyectos
+where entregan.numero < = proyectos.numero
+RESULTADO = 1,607 FILAS, EJEMPLO:
+1000	AAAA800101   	5000	1998-07-08 00:00:00.000	165.00	5000	Vamos Mexico
+1000	AAAA800101   	5000	2020-09-28 19:56:32.777	0.00	5000	Vamos Mexico
+
+(select * from entregan where clave=1450)
+union
+(select * from entregan where clave=1300)
+RESULTADO= 3 FILAS, EJEMPLO:
+1300	GGGG800101   	5005	2002-06-10 00:00:00.000	521.00
+1300	GGGG800101   	5005	2003-02-02 00:00:00.000	457.00
+¿Cuál sería una consulta que obtuviera el mismo resultado sin usar el operador Unión? Compruébalo.
+SELECT * FROM Entregan Where clave=1450 OR clave=1450
+
+select * from entregan,materiales
+ERSULTADO 5,852 FILAS, EJEMPLO:
+1000	AAAA800101   	5000	1998-07-08 00:00:00.000	165.00	1000	Varilla 3/16	100.00
+1000	AAAA800101   	5000	2020-09-28 19:56:32.777	0.00	1000	Varilla 3/16	100.00
+¿Cómo está definido el número de tuplas de este resultado en términos del número de tuplas de entregan y de materiales?
+Se multiplicaron entre si.
+
+select descripcion
+from materiales m, entregan e
+where m.Clave=e.Clave AND e.fecha between '2000/01/01' AND '2000/12/31'
+¿Por qué aparecen varias veces algunas descripciones de material?
+Porque se entregaron mas de 1 vez ese tipo de material.
+
+select distinct descripcion
+from materiales m, entregan e
+where m.Clave=e.Clave AND e.fecha between '2000/01/01' AND '2000/12/31'
+¿Qué resultado obtienes? La version sin repeticiones de la respuesta anterior.
+
+SELECT * FROM materiales where Descripcion LIKE 'Si%'
+
+
+¿Qué resultado obtienes?
+Explica que hace el símbolo '%': Se refiere a que regresara la descripcion de materiales que tengan 'si' como prefijo y lo que le siga no importa.
+¿Qué sucede si la consulta fuera : LIKE 'Si' ?: Solo regresara la descripción de materiales que tenga 'si', nada mas.
+¿Qué resultado obtienes? Ninguno.
+Explica a qué se debe este comportamiento: A que excluimos el resto de las descripciones al poner aun mas excepciones en la consulta.
+
+SELECT (Apellido + ', ' + Nombre) as Nombre FROM Personas;
+
+DECLARE @foo varchar(40);
+DECLARE @bar varchar(40);
+SET @foo = '¿Que resultado';
+SET @bar = ' ¿¿¿??? '
+SET @foo += ' obtienes?';
+PRINT @foo + @bar;
+
+¿Qué resultado obtienes de ejecutar el siguiente código? nada aporque no tengo la tabla personas...la hicimos en algun punto? wth
+¿Para qué sirve DECLARE? declara variables locales
+¿Cuál es la función de @foo? es una variable varchar que contiene un texto asignado
+¿Que realiza el operador SET?le da el valor a las variables creadas.
+
+SELECT RFC FROM Entregan WHERE RFC LIKE '[A-D]%';
+EL [] Ayuda a tener un rango de letras de A a D antes del operador %.
+SELECT RFC FROM Entregan WHERE RFC LIKE '[^A]%';
+^ regresa los rfc de las entregas que empiezan con todo menos A.
+SELECT Numero FROM Entregan WHERE Numero LIKE '___6';
+_ Regresa los rfc de las entregas que empiezan con 3 caracteres (representados por un _ c/u) luego de caracter que pongas.
+
+SELECT Clave,RFC,Numero,Fecha,Cantidad
+FROM Entregan
+WHERE Numero Between 5000 and 5010;
+¿Cómo filtrarías rangos de fechas? usar un between entre el primero de enero y el 31 de diciembre de un año.
+
+SELECT RFC,Cantidad, Fecha,Numero
+FROM [Entregan]
+WHERE [Numero] Between 5000 and 5010 AND
+Exists ( SELECT [RFC]
+FROM [Proveedores]
+WHERE RazonSocial LIKE 'La%' and [Entregan].[RFC] = [Proveedores].[RFC] )
+
+¿Qué hace la consulta? regresa el rfc, cantidad, fecha y numero de las entregas cuyos receptores tienen una razón social que empieza con La
+¿Qué función tiene el paréntesis ( ) después de EXISTS? Es una subconsulta que selecciona las razones sociales que empiezan con La
+
+¿Qué hace la siguiente sentencia? Explica por qué.
+SELECT TOP 2 * FROM Proyectos: Los primeros 2 proyectos en orden numerico.
+
+¿Qué sucede con la siguiente consulta? Explica por qué.
+SELECT TOP Numero FROM Proyectos: Error de sintaxis cerca de Numero porque no estamos especificando el número.
+
+CONSULTAS:
+#1 Los materiales (clave y descripción) entregados al proyecto "México sin ti no estamos completos".
+select m.clave, m.Descripcion
+from materiales m, Entregan e, Proyectos p
+where m.Clave=e.Clave AND e.Numero=p.Numero AND p.Denominacion='Mexico sin ti no estamos completos'
+
+#2 Los materiales (clave y descripción) que han sido proporcionados por el proveedor "Acme tools".
+select m.clave, m.Descripcion
+from materiales m, Entregan e, Proveedores p
+where m.Clave=e.Clave AND e.RFC=p.RFC AND p.RazonSocial='Acme Tools'
+
+#3 El RFC de los proveedores que durante el 2000 entregaron en promedio cuando menos 300 materiales.
+Select p.RFC, SUM(e.Cantidad) as 'Total materiales'
+from Entregan e, Proveedores p
+WHERE e.RFC=p.RFC AND fecha like '%2000%'
+GROUP BY p.RFC
+
+#4 El Total entregado por cada material en el año 2000.
+Select m.Descripcion, SUM(e.Cantidad) as 'Total materiales'
+from Entregan e, Materiales m
+WHERE m.Clave=e.Clave AND fecha like '%2000%'
+GROUP BY m.Descripcion
+
+#5 La Clave del material más vendido durante el 2001.
+Select top 1 m.Descripcion, SUM(e.Cantidad) as 'Total materiales'
+from Entregan e, Materiales m
+WHERE m.Clave=e.Clave AND fecha like '%2001%'
+GROUP BY m.Descripcion
+
+#6 Productos que contienen el patrón 'ub' en su nombre.
+select * from Materiales m
+where m.Descripcion like '%ub%'
+
+#7 Denominación y suma del total a pagar para todos los proyectos.
+Select p.Denominacion, SUM(e.Cantidad) as 'Costo Total'
+from Entregan e, Proyectos p
+WHERE p.Numero=e.Numero
+GROUP BY p.Denominacion
+
+
+
+
+
+
