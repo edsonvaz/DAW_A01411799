@@ -9,7 +9,7 @@
 <?php
 function conectar(){
     $conexion_bd=
-    mysqli_connect("localhost","root","","PETZ");
+    mysqli_connect("localhost","id15255990_edson","V@zquez122478","id15255990_petz");
     
     if ($conexion_bd==NULL){
         die("No se pudo conectar a la base de datos.");

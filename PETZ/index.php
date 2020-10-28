@@ -1,5 +1,4 @@
 <?php
-session_start();
 include("conexionbd.php");
 include("_navbar.html");
 include("_header.html");
