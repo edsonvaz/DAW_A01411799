@@ -11,13 +11,8 @@ a {
   text-decoration: none;
 }
 
-<<<<<<< HEAD
-h1 {
-
-  color: #1b262c;
-  text-shadow: 3px 1px 1px darkgrey;
 table.a {
-    color: white;
+    color: black;
     margin: auto;
     padding:30px 25px;
     align-content: center;
@@ -26,19 +21,16 @@ table.a {
 label {
     color:black;
 }
-h1 {
 
+h1 {
+  
   color: lightslategrey;
-  text-shadow: 3px 1px 1px darkgrey;
     text-align: center;
-  color: blue;
-=======
 }
 
 h2 {
-
+  
   color: blue;
->>>>>>> 1fc8f3b24d7365dc330deeee3c994483d5150a43
 }
 
 h3 {
@@ -46,7 +38,6 @@ h3 {
 }
 
 
-=======
 h1.login-title {
     color: #666;
     margin: 0px auto 25px;
@@ -113,7 +104,7 @@ h3 {
 }
 
 .menu-icon {
-  position: fixed;
+  position: fixed; 
   display: flex;
   top: 5px;
   left: 10px;
@@ -150,7 +141,7 @@ h3 {
   transform: translateX(-245px);
   transition: all .6s ease-in-out;
   box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.16), 0 0 0 1px rgba(0, 0, 0, 0.08);
-  z-index: 2;
+  z-index: 2; 
   background-color: #0d455c;
 }
 
@@ -168,7 +159,6 @@ h3 {
   color: #ddd;
 }
 
-=======
 label {
     color:black;
 }
@@ -248,7 +238,6 @@ label {
       "sidenav footer";
   }
 
-=======
 .login-input {
     font-size: 15px;
     border: 1px solid #ccc;
@@ -261,7 +250,7 @@ label {
     border-color:#6e8095;
     outline: none;
 }
-
+    
   .header_search {
     margin-left: 0;
   }
@@ -276,7 +265,6 @@ label {
   }
 }
 
-=======
 link{
     color:blue;
 }

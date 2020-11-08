@@ -1,13 +1,15 @@
 <?php
 
 function conectar() {
-    $conexion_bd = mysqli_connect("localhost","fer","micontra","RegistroPacientes");
+    $host="localhost";
+    $name="fer";
+    $pass="micontra";
+    $dbname="RPacientes";
 
-    if ($conexion_bd == NULL) {
-        die("No se pudo conectar a la base de datos");
+    $conexion_bd = mysqli_connect($host,$name,$pass,$dbname);
+    if (!$conexion_bd){
+        echo "Failed to connect to MySQL: " . mysqli_connect_error();
     }
-
-    $conexion_bd->set_charset("utf8");
 
     return $conexion_bd;
 }
@@ -16,39 +18,68 @@ function desconectar($conexion_bd) {
     mysqli_close($conexion_bd);
 }
 
+function agregar_paciente($sexo,$nombre, $telefono, $rfc, $email, $fechaNacimiento, $emailFacturas, $razonSocial, $direccion, $codigoPostal){
+    $conexion_bd = conectar();
+    
+    $id = rand(20000,29999);
+    $sexo = $_POST["sexo"];
+    $nombre = $_POST["nombre"];
+    $telefono = $_POST["telefono"];
+    $rfc = $_POST["rfc"];
+    $email = $_POST["email"];
+    $fechaNacimiento = $_POST["fechaNacimiento"];
+    $emailFacturas = $_POST["emailFactura"];
+    $razonsocial =$_POST["razonsocial"];
+    $direccion = $_POST["direccion"];
+    $codigoPostal = $_POST["codigoPostal"];
+        
+    $insertarPaciente = "INSERT INTO Paciente (idPaciente, sexo, nombre, fechanacimiento, telefono, rfc, email, emailFacturas, razonsocial, direccion, codigopostal) 
+    VALUES ($id, $sexo,'".$nombre."', '".$fechaNacimiento."', ".$telefono.", '".$rfc."', '".$email."', '".$emailFacturas."', '".$razonsocial."', '".$direccion."', $codigoPostal)";
+        
+    var_dump($insertarPaciente);
+    $ejecutarInsertar = mysqli_query($conexion_bd,$insertarPaciente);
+        
+        
+    if (!$ejecutarInsertar){
+        echo "Error en consulta sql.";
+        $insertarPaciente -> error;
+    }else{
+        ?>
+    <script type=text/javascript>
+            
+    alert('Registro completado');
+    </script><?php
+    }
+}
+
 function busqueda_pacientes($nombre) {
 
-    $consulta = 'SELECT * ';
-    $consulta .= 'FROM Paciente p ';
-    $consulta .= 'WHERE p.nombre = '.$nombre.
-    /*OR telefono=  '.$telefono;*/
-
     $conexion_bd = conectar();
-    $resultados_consulta = $conexion_bd->query($consulta);
-
-    $resultado = '<table id="pacientes">';
-    $resultado .= '<tr><th>idPaciente</th><th>Nombre</th><th>telefono</th><th>RFC</th><th>fechaNacimiento</th><th>email</th><th>Direccion</th><th>razonSocial</th><th>codigoPostal</th><tr>';
-
-    while ($row = mysqli_fetch_array($resultados_consulta, MYSQLI_ASSOC)) {
-    //MYSQLI_NUM: Devuelve los resultados en un arreglo numérico
-        //$row[0]
-    //MYSQLI_ASSOC: Devuelve los resultados en un arreglo asociativo
-        //$row["acusador"]
-    //MYSQL_BOTH: Devuelve los resultados en un arreglo numérico y asociativo (Utiliza el doble de memoria)
-        //$row[0] y $row["acusador"]
-
-        $resultado .= '<tr>';
-        $resultado .= '<td>'.$row["nombre"].'</td>';
-        /*$resultado .= '<td>'.$row["telefono"].'</td>';*/
-        $resultado .= '</tr>';
-    }
-
-    mysqli_free_result($resultados_consulta); //Liberar la memoria
-
-    $resultado .= '</table>';
-
-    desconectar($conexion_bd);
+    $consulta = "SELECT * FROM Paciente WHERE nombre LIKE '%".$_POST['buscaNombre']."%'"; 
+    var_dump($ejecutarConsulta);
+    $ejecutarConsulta = mysqli_query($conexion_bd, $consulta);
+    $verRegistros = mysqli_num_rows($ejecutarConsulta);
+    $registro = mysqli_fetch_array($ejecutarConsulta);
+    if(!$ejecutarConsulta){
+        echo"Error en la consulta";
+    }else{
+        if($verRegistros<1){
+            echo"<tr><td>Sin registros</td></tr>";
+        }else{
+            for($i=0; $i<=$verFilas; $i++){
+				echo'
+				    <tr>
+				    <td>'.$registro[1].'</td>
+				    <td>'.$registro[3].'</td>
+				    <a href="dashboard.php"><td></td></a>
+				    </tr>
+				';
+                    $registro = mysqli_fetch_array($ejecutarConsulta);
+                }
+            }
+        }
+    
     return $resultado;
 }
-/*busqueda_pacientes("%edson%");*/
+
 ?>

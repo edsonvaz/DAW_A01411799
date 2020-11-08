@@ -1,11 +1,17 @@
-
 <?php 
-    require("conexion_bd.php");
-     ?>
-
+    $host="localhost";
+    $name="fer";
+    $pass="micontra";
+    $dbname="RPacientes";
+    
+    
+        $conexion_bd = mysqli_connect($host,$name,$pass,$dbname);
+    
+    if (!$conexion_bd){
+        echo "Failed to connect to MySQL: " . mysqli_connect_error();
+    } ?>
 
 <main class="main"> 
-    
     
     <nav >
             <ul style="color:darkgrey;" >
@@ -13,7 +19,6 @@
                 / <a style="color:slategray" href="pacientes.php">Pacientes</a>
             </ul>
     </nav>
-    <h1>Acceso Rápido</h1>
 <div  style="height: auto">
    <form method="post">
     <table class="a">
@@ -28,7 +33,6 @@
         </tr>
         <tr>
             <td><input id="Buscar" name="submit" class="submit" type="submit" value="buscar" ></td>
-        </tr>
     </table>
     </form>   
 
@@ -42,8 +46,6 @@
     </tr>
   <?php
         if(isset($_POST['submit'])){
-          
-        $conexion_bd = conectar();
         $consulta = "SELECT * FROM Paciente WHERE nombre LIKE '%".$_POST['buscaNombre']."%'"; 
         var_dump($ejecutarConsulta);
         $ejecutarConsulta = mysqli_query($conexion_bd, $consulta);
@@ -60,8 +62,8 @@
 				    <tr>
 				    <td>'.$fila[1].'</td>
 				    <td>'.$fila[3].'</td>
-				    <a href="dashboard.php"><td></td></a>
-				    </tr>
+				    <a href="Expedientes.php"<td></td>
+				    </tr></a>
 				';
                     $fila = mysqli_fetch_array($ejecutarConsulta);
                 }
